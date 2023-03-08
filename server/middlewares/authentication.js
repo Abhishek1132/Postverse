@@ -14,7 +14,7 @@ const authentication = async (req, res, next) => {
     // authenticate using token
     next();
   } catch (err) {
-    throw new UnauthenticatedError("Authentication Invalid");
+    throw new UnauthenticatedError("Authentication Invalid!");
   }
 };
 
