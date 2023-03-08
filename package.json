@@ -1,7 +1,7 @@
 {
-  "name": "social-media-web-app",
+  "name": "postverse",
   "version": "1.0.0",
-  "description": "social media website where users can connect with each, post images and have discussions and chat with each other",
+  "description": "Postverse is a social media website where users can connect with each, post images and have discussions and chat with each other",
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
