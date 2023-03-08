@@ -13,6 +13,7 @@ const PostSchema = new Schema(
     },
     image: {
       type: String,
+      default: null,
     },
     likes: [
       {
@@ -22,14 +23,8 @@ const PostSchema = new Schema(
     ],
     comments: [
       {
-        user: {
-          type: Schema.Types.ObjectId,
-          ref: "User",
-        },
-        text: {
-          type: String,
-          required: true,
-        },
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
       },
     ],
   },

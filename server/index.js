@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/api/v1", (req, res) => {
-  res.send("Social Media Web App Server ver. 1.0.0a");
+  res.send("Postverse Server ver. 1.0.0a");
 });
 
 app.use("/api/v1/auth", authRoutes);
