@@ -29,7 +29,8 @@ const UserSchema = Schema(
     },
     occupation: {
       type: String,
-      default: null,
+      minlength: 2,
+      maxlength: 100,
     },
     gender: {
       type: String,
@@ -37,7 +38,6 @@ const UserSchema = Schema(
         values: ["Male", "Female", "Others", "Prefer Not to Say"],
         message: "{VALUE} is not valid!",
       },
-      default: "Prefer Not to Say",
     },
     country: {
       type: String,
@@ -243,7 +243,6 @@ const UserSchema = Schema(
         ],
         message: "{VALUE} is not a valid country!",
       },
-      default: null,
     },
     password: {
       type: String,

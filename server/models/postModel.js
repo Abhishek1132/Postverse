@@ -13,7 +13,6 @@ const PostSchema = new Schema(
     },
     image: {
       type: String,
-      default: null,
     },
     likes: [
       {
@@ -23,9 +22,8 @@ const PostSchema = new Schema(
     ],
     recentComment: {
       type: Schema.Types.ObjectId,
-      default: null,
       ref: "Comment",
-    }
+    },
   },
   { timestamps: true }
 );
