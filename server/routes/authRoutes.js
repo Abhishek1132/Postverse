@@ -1,10 +1,11 @@
 const { loginUser, registerUser } = require("../controllers/authControllers");
 
 const { Router } = require("express");
+const upload = require("../features/multer");
 
 const router = Router();
 
-router.route("/login").post(loginUser);
-router.route("/register").post(registerUser);
+router.post("/login", loginUser);
+router.post("/register", upload.any("profileImage"), registerUser);
 
 module.exports = router;

@@ -11,7 +11,10 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    image: {
+    imageUrl: {
+      type: String,
+    },
+    imageId: {
       type: String,
     },
     likes: [
@@ -20,10 +23,6 @@ const PostSchema = new Schema(
         ref: "User",
       },
     ],
-    recentComment: {
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-    },
   },
   { timestamps: true }
 );

@@ -22,6 +22,7 @@ const routeNotFound = require("./middlewares/route-not-found");
 const authRoutes = require("./routes/authRoutes");
 
 const logger = require("./middlewares/logger");
+const upload = require("./features/multer");
 const app = express();
 
 app.set("trust proxy", 1);
@@ -32,6 +33,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(
   helmet.contentSecurityPolicy({
