@@ -39,6 +39,13 @@ const UserSchema = Schema(
         message: "{VALUE} is not valid!",
       },
     },
+    relationshipStatus: {
+      type: String,
+      enum: {
+        values: ["Single", "In a Relationship", "Married", "Complicated"],
+        message: "{VALUE} is not valid!",
+      },
+    },
     country: {
       type: String,
       enum: {
@@ -253,6 +260,9 @@ const UserSchema = Schema(
       type: String,
       default:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+    profileImageId: {
+      type: String,
     },
     followers: [
       {
