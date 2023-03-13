@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
@@ -9,12 +9,11 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    setPosts: (state, { payload }) => {
-      console.log(payload);
-      state.posts = payload.posts;
+    setPosts: (state, { posts }) => {
+      state.posts = posts;
     },
-    setIsLoading: (state, { payload }) => {
-      state.isLoading = payload.isLoading;
+    setIsLoading: (state, { isLoading }) => {
+      state.isLoading = isLoading;
     },
   },
 });

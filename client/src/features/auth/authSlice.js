@@ -9,11 +9,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    handleLogin: (state, { payload }) => {
-      state.user = payload.user;
-      state.token = payload.token;
+    handleLogin: (state, { user, token }) => {
+      state.user = user;
+      state.token = token;
     },
     handleLogout: (state) => {
+      localStorage.removeItem("userData");
       state.user = null;
       state.token = null;
     },

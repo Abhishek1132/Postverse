@@ -6,16 +6,18 @@ const fs = require("fs");
 const User = require("../models/userModel");
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email_username, password } = req.body;
 
-  if (!email || !password) {
+  if (!email_username || !password) {
     throw new BadRequestError("Please provide all required fields!");
   }
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({
+    $or: [{ username: email_username }, { email: email_username }],
+  });
 
   if (!user || !(await user.matchPassword(password))) {
-    throw new UnauthenticatedError("Invalid Email or Password!");
+    throw new UnauthenticatedError("Invalid Email/Username or Password!");
   }
 
   const token = user.generateToken();
@@ -52,8 +54,16 @@ const registerUser = async (req, res) => {
     throw new BadRequestError("Password and Confirm Password do not match!");
   }
 
-  if (await User.findOne({ username })) {
+  const temp = await User.findOne({
+    $or: [{ username: username }, { email: email }],
+  });
+
+  if (temp && temp.username === username) {
     throw new BadRequestError("User with this username already exists!");
+  }
+
+  if (temp && temp.email === email) {
+    throw new BadRequestError("User with this email already exists!");
   }
 
   if (req.files.length) {
@@ -81,6 +91,7 @@ const registerUser = async (req, res) => {
     gender,
     country,
     profileImage: imageUrl,
+    profileImageId: imageId,
   });
 
   const token = user.generateToken();

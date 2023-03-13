@@ -9,10 +9,10 @@ const cloudinaryUpload = (file, folder, public_id) => {
         folder,
         resource_type: "auto",
         eager: {
-          quality: 80,
+          quality: public_id ? 50 : 75,
         },
         transformation: {
-          quality: 80,
+          quality: public_id ? 50 : 75,
         },
       },
       (err, result) => {

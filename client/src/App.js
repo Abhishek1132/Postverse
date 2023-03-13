@@ -1,14 +1,20 @@
+import { useColorMode } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import Authentication from "./pages/Authentication";
 import Authpage from "./pages/Authpage";
 import Discoverpage from "./pages/Discoverpage";
 import Homepage from "./pages/Homepage";
 import Profilepage from "./pages/Profilepage";
 
+import "./App.css";
+
 function App() {
+  const { colorMode } = useColorMode();
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ backgroundColor: colorMode === "light" ? "whitesmoke" : "" }}
+    >
       <Routes>
         <Route path="/" element={<Authentication />} />
         <Route path="/auth" element={<Authpage />} />
