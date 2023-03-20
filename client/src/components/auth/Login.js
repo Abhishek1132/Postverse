@@ -14,6 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../api";
+import { showErrorToast } from "./../miscellanious/errorToast";
+import { useDispatch } from "react-redux";
+import { handleLogin } from "../../features/auth/authSlice";
 
 const showButtonHoverStyle = {
   opacity: 0.9,
@@ -21,23 +25,74 @@ const showButtonHoverStyle = {
 };
 
 const Login = () => {
-  const [showpass, setShowpass] = useState(false);
   const [email_username, setEmail_username] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showpass, setShowpass] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
 
   const handleShowpass = () => setShowpass(!showpass);
 
-  const handleSubmit = async () => {};
-  const handleGuestLogin = async () => {};
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const { data } = await loginUser({ email_username, password });
+      console.log(data);
+      dispatch(handleLogin({ user: data.user, token: data.token }));
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ user: data.user, token: data.token })
+      );
+      toast({
+        title: "Log In Successful!",
+        description: `Welcome Again, ${data.user.name}!`,
+        duration: 3000,
+        status: "success",
+      });
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      showErrorToast(toast, error);
+    }
+
+    setLoading(false);
+  };
+  const handleGuestLogin = async () => {
+    setLoading(true);
+    try {
+      const { data } = await loginUser({
+        email_username: "guest",
+        password: "guest@123",
+      });
+      console.log(data);
+      dispatch(handleLogin({ user: data.user, token: data.token }));
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ user: data.user, token: data.token })
+      );
+      toast({
+        title: "Guest Login Successful!",
+        description: `Welcome Guest User. This account is only for demo purposes!`,
+        duration: 3000,
+        status: "success",
+      });
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      showErrorToast(toast, error);
+    }
+
+    setLoading(false);
+  };
 
   return (
     <form>
       <VStack gap=".3rem">
-        <FormControl isRequired>
+        <FormControl autoComplete="true" isRequired>
           <FormLabel>Email/Username</FormLabel>
           <InputGroup>
             <Input
@@ -50,7 +105,7 @@ const Login = () => {
             />
           </InputGroup>
         </FormControl>
-        <FormControl isRequired>
+        <FormControl autoComplete="true" isRequired>
           <FormLabel>Password</FormLabel>
           <InputGroup size="md">
             <Input

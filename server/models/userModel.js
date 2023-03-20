@@ -29,27 +29,30 @@ const UserSchema = Schema(
     },
     occupation: {
       type: String,
-      minlength: 2,
       maxlength: 100,
     },
     gender: {
       type: String,
+      required: false,
       enum: {
-        values: ["Male", "Female", "Others", "Prefer Not to Say"],
+        values: ["", "Male", "Female", "Others", "Prefer Not to Say"],
         message: "{VALUE} is not valid!",
       },
     },
     relationshipStatus: {
       type: String,
+      required: false,
       enum: {
-        values: ["Single", "In a Relationship", "Married", "Complicated"],
+        values: ["", "Single", "In a Relationship", "Married", "Complicated"],
         message: "{VALUE} is not valid!",
       },
     },
     country: {
       type: String,
+      required: false,
       enum: {
         values: [
+          "",
           "Afghanistan",
           "Albania",
           "Algeria",

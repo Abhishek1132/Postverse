@@ -66,7 +66,7 @@ const registerUser = async (req, res) => {
     throw new BadRequestError("User with this email already exists!");
   }
 
-  if (req.files.length) {
+  if (req.files && req.files.length) {
     const { path } = req.files[0];
 
     var { imageUrl, imageId } = await cloudinaryUpload(

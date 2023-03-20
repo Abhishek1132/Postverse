@@ -9,11 +9,11 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    setPosts: (state, { posts }) => {
-      state.posts = posts;
+    setPosts: (state, { payload }) => {
+      state.posts = payload.posts;
     },
-    setIsLoading: (state, { isLoading }) => {
-      state.isLoading = isLoading;
+    setIsLoading: (state, { payload }) => {
+      state.isLoading = payload.isLoading;
     },
   },
 });

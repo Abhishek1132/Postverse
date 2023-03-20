@@ -9,9 +9,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    handleLogin: (state, { user, token }) => {
-      state.user = user;
-      state.token = token;
+    handleLogin: (state, { payload }) => {
+      state.user = payload.user;
+      state.token = payload.token;
     },
     handleLogout: (state) => {
       localStorage.removeItem("userData");

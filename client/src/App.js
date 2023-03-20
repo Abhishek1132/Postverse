@@ -16,7 +16,7 @@ function App() {
       style={{ backgroundColor: colorMode === "light" ? "whitesmoke" : "" }}
     >
       <Routes>
-        <Route path="/" element={<Authentication />} />
+        <Route path="/" exact element={<Authentication />} />
         <Route path="/auth" element={<Authpage />} />
         <Route path="/home" element={<Homepage />} />
         <Route path="/profile" element={<Profilepage />} />

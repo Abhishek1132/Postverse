@@ -13,10 +13,12 @@ const Authentication = () => {
       const { user, token } = userData;
       if (user && token) {
         dispatch(handleLogin({ user, token }));
-        return navigate("/home");
+        navigate("/home");
+        return;
       }
+      localStorage.removeItem("userData");
     }
-    localStorage.removeItem("userData");
+
     navigate("/auth");
   }, [navigate, dispatch]);
   return (
@@ -41,7 +43,7 @@ const Authentication = () => {
           size="xl"
           marginBottom="5"
         />
-        <Text fontSize={"xl"}>Authenticating...</Text>
+        <Text fontSize={"xl"}>Loading...</Text>
       </Box>
     </Container>
   );
