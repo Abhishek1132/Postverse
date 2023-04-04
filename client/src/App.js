@@ -5,6 +5,7 @@ import Authpage from "./pages/Authpage";
 import Discoverpage from "./pages/Discoverpage";
 import Homepage from "./pages/Homepage";
 import Profilepage from "./pages/Profilepage";
+import Authenticate from "./components/auth/Authenticate";
 
 import "./App.css";
 
@@ -18,9 +19,33 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Authentication />} />
         <Route path="/auth" element={<Authpage />} />
-        <Route path="/home" element={<Homepage />} />
-        <Route path="/profile" element={<Profilepage />} />
-        <Route path="/discover" element={<Discoverpage />} />
+        <Route
+          path="/home"
+          element={
+            <>
+              <Authenticate />
+              <Homepage />
+            </>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Authenticate />
+              <Profilepage />
+            </>
+          }
+        />
+        <Route
+          path="/discover"
+          element={
+            <>
+              <Authenticate />
+              <Discoverpage />
+            </>
+          }
+        />
       </Routes>
     </div>
   );

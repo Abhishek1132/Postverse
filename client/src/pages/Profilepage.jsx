@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Profilepage = () => {
-  const {user,token} = useSelector((store)=>store.auth)
   const navigate = useNavigate();
-
-  useEffect(()=>{
-    if(!user || !token){
+  useEffect(() => {
+    if (!localStorage.getItem("userData")) {
       navigate("/");
     }
-  },[user,token,navigate])
+  }, []);
   return (
-    <div>Profilepage</div>
+    <>{ localStorage.getItem("userData") &&
+        <div>Profile Page</div>
+      }
+    </>
   )
 }
 

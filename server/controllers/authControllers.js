@@ -1,6 +1,6 @@
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
-const { cloudinaryUpload } = require("../features/cloudinary");
+const { cloudinaryUpload } = require("../utils/cloudinary");
 const fs = require("fs");
 
 const User = require("../models/userModel");
@@ -69,15 +69,25 @@ const registerUser = async (req, res) => {
   if (req.files && req.files.length) {
     const { path } = req.files[0];
 
-    var { imageUrl, imageId } = await cloudinaryUpload(
-      path,
-      "postverse/users",
-      username
-    );
+    try {
+      var { imageUrl, imageId } = await cloudinaryUpload(
+        path,
+        "postverse/users",
+        username
+      );
 
-    fs.unlink(path, (err) => {
+      fs.unlink(path, (err) => {
+        console.log(err);
+      });
+    } catch (err) {
       console.log(err);
-    });
+
+      fs.unlink(path, (err) => {
+        console.log(err);
+      });
+
+      throw new Error(err.message);
+    }
   }
 
   console.log(imageId, imageUrl);

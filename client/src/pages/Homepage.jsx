@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
-
-  const {user,token} = useSelector((store)=>store.auth)
   const navigate = useNavigate();
-
-  useEffect(()=>{
-    if(!user || !token){
+  useEffect(() => {
+    if (!localStorage.getItem("userData")) {
       navigate("/");
     }
-  },[user,token,navigate])
+  }, []);
   return (
+    <>{ localStorage.getItem("userData") &&
     <div>
       Homepage
       <br />
-      <Link to="/discover" >Discover Page</Link>
+      <Link to="/discover" style={{color:"royalblue",textDecoration:"underline"}} >Go to Discover Page</Link>
+      <br />
+      <Link to="/profile" style={{color:"royalblue",textDecoration:"underline"}} >Go to Profile Page</Link>
     </div>
+    }
+    </>
   )
 }
 

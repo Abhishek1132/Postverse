@@ -13,8 +13,7 @@ const UserSchema = Schema(
     },
     username: {
       type: String,
-      minlength: 5,
-      maxlength: 30,
+      regex: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,28}[^\W]$/,
       required: [true, "Username is required!"],
       unique: true,
     },

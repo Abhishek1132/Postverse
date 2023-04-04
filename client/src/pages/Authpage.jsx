@@ -21,10 +21,6 @@ const Authpage = () => {
   const {colorMode, toggleColorMode} = useColorMode();
   const {user,token} = useSelector((store)=>store.auth);
   useEffect(()=>{
-    if(user && token){
-      navigate("/home");
-      return;
-    }
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       const { user, token } = userData;
@@ -35,10 +31,9 @@ const Authpage = () => {
       }
       localStorage.removeItem("userData");
     }
-    
-
-  },[dispatch,navigate,user,token])
+  },[])
   return (
+    <>{ !localStorage.getItem("userData") &&
     <>
       <Tooltip label="Change Appearance">
       <Icon
@@ -121,6 +116,7 @@ const Authpage = () => {
         </Box>
       </Container>
     </>
+      }</>
   )
 }
 

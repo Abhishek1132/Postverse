@@ -1,10 +1,12 @@
 import { Box, Container, Spinner, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { handleLogin } from "../features/auth/authSlice";
+import { handleLogin, handleLogout } from "../features/auth/authSlice";
 
 const Authentication = () => {
+  const { user, token } = useSelector((store) => store.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,9 +20,9 @@ const Authentication = () => {
       }
       localStorage.removeItem("userData");
     }
-
+    dispatch(handleLogout());
     navigate("/auth");
-  }, [navigate, dispatch]);
+  }, []);
   return (
     <Container
       width="100vw"

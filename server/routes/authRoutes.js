@@ -1,7 +1,7 @@
 const { loginUser, registerUser } = require("../controllers/authControllers");
 
 const { Router } = require("express");
-const upload = require("../features/multer");
+const upload = require("../utils/multer");
 
 const router = Router();
 
