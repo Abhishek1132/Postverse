@@ -19,19 +19,21 @@ const Authpage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {colorMode, toggleColorMode} = useColorMode();
-  const {user,token} = useSelector((store)=>store.auth);
+  const {auth} = useSelector((store)=>store);
   useEffect(()=>{
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
       const { user, token } = userData;
       if (user && token) {
-        dispatch(handleLogin({ user, token }));
+        if(!auth.user || !auth.token)
+          dispatch(handleLogin({ user, token }));
+          
         navigate("/home");
         return;
       }
       localStorage.removeItem("userData");
     }
-  },[])
+  },[dispatch,navigate])
   return (
     <>{ !localStorage.getItem("userData") &&
     <>
@@ -87,6 +89,7 @@ const Authpage = () => {
           p={4}
           borderWidth="thin"
           borderRadius="lg"
+          borderColor={colorMode === "light" ? "lightgrey" : "blackAlpha.800"}
           boxShadow="xl"
           margin="auto"
         >

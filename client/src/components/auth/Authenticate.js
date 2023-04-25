@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { handleLogin, handleLogout } from "../../features/auth/authSlice";
 
 const Authenticate = () => {
+  const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -12,14 +13,14 @@ const Authenticate = () => {
     if (userData) {
       const { user, token } = userData;
       if (user && token) {
-        dispatch(handleLogin({ user, token }));
+        if (!auth.user || !auth.token) dispatch(handleLogin({ user, token }));
         return;
       }
       localStorage.removeItem("userData");
     }
     dispatch(handleLogout());
     navigate("/");
-  }, []);
+  }, [navigate, dispatch]);
   return <></>;
 };
 

@@ -20,6 +20,7 @@ const routeNotFound = require("./middlewares/route-not-found");
 //routers/routes
 // const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const logger = require("./middlewares/logger");
 const app = express();
@@ -57,6 +58,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", authentication, userRoutes);
 
 app.use(errorHandler);
 

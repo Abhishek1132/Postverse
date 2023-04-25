@@ -1,22 +1,25 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/navbar/Navbar';
+import { Box } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 
 const Homepage = () => {
+  const {user,token} = useSelector((store)=>store.auth)
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("userData")) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
   return (
-    <>{ localStorage.getItem("userData") &&
-    <div>
-      Homepage
-      <br />
-      <Link to="/discover" style={{color:"royalblue",textDecoration:"underline"}} >Go to Discover Page</Link>
-      <br />
-      <Link to="/profile" style={{color:"royalblue",textDecoration:"underline"}} >Go to Profile Page</Link>
-    </div>
+    <>{ (localStorage.getItem("userData") && user && token) &&
+    <>
+      <Navbar />
+      <Box>
+        Homepage
+      </Box>
+    </>
     }
     </>
   )

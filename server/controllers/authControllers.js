@@ -41,6 +41,8 @@ const registerUser = async (req, res) => {
     email,
     occupation,
     gender,
+    phone,
+    relationshipStatus,
     country,
     password,
     cpassword,
@@ -100,6 +102,8 @@ const registerUser = async (req, res) => {
     occupation,
     gender,
     country,
+    phone,
+    relationshipStatus,
     profileImage: imageUrl,
     profileImageId: imageId,
   });

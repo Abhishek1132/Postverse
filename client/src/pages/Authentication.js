@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { handleLogin, handleLogout } from "../features/auth/authSlice";
 
 const Authentication = () => {
-  const { user, token } = useSelector((store) => store.auth);
+  const { auth } = useSelector((store) => store);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Authentication = () => {
     if (userData) {
       const { user, token } = userData;
       if (user && token) {
-        dispatch(handleLogin({ user, token }));
+        if (!auth.user || !auth.token) dispatch(handleLogin({ user, token }));
         navigate("/home");
         return;
       }
@@ -22,7 +22,7 @@ const Authentication = () => {
     }
     dispatch(handleLogout());
     navigate("/auth");
-  }, []);
+  }, [dispatch, navigate]);
   return (
     <Container
       width="100vw"

@@ -21,3 +21,47 @@ export const registerUser = (payload) => {
     },
   });
 };
+
+export const searchUsers = (payload) => {
+  return axios.get(`${APIURL}/users/search?q=${payload.q}`, {
+    headers: {
+      ...defaultConfig.headers,
+      authorization: `Bearer ${payload.token}`,
+    },
+  });
+};
+
+export const followUser = (payload) => {
+  return axios.patch(
+    `${APIURL}/users/follow/${payload.userid}`,
+    {},
+    {
+      headers: {
+        ...defaultConfig.headers,
+        authorization: `Bearer ${payload.token}`,
+      },
+    }
+  );
+};
+
+export const unFollowUser = (payload) => {
+  return axios.patch(
+    `${APIURL}/users/unfollow/${payload.userid}`,
+    {},
+    {
+      headers: {
+        ...defaultConfig.headers,
+        authorization: `Bearer ${payload.token}`,
+      },
+    }
+  );
+};
+
+export const getUserProfile = (payload) => {
+  return axios.get(`${APIURL}/users/profile/${payload.username}`, {
+    headers: {
+      ...defaultConfig.headers,
+      authorization: `Bearer ${payload.token}`,
+    },
+  });
+};

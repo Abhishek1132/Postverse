@@ -238,10 +238,6 @@ const Signup = () => {
     username: "",
     password: "",
     cpassword: "",
-    occupation: "",
-    gender: "",
-    country: "",
-    relationshipStatus: "",
   });
   const [profileImage, setProfileImage] = useState([]);
 
@@ -263,6 +259,19 @@ const Signup = () => {
   };
 
   const handleSubmit = async () => {
+    if (
+      !userInput.username.match(
+        /^(?!.*\.\.)(?!.*\.$)[a-zA-Z][\w.]{1,28}[^\W]$/g
+      )
+    ) {
+      toast({
+        title: "Invalid Username!",
+        description:
+          "It can only be 3-30 characters long, only contain (a-z,A-Z,1-9,.,_) and start with alphabets!",
+        status: "warning",
+      });
+      return;
+    }
     setLoading(true);
 
     try {
@@ -407,13 +416,24 @@ const Signup = () => {
                 <AccordionPanel pb={4} px="1">
                   <VStack gap=".3rem">
                     <FormControl>
+                      <FormLabel>Phone Number</FormLabel>
+                      <Input
+                        type="text"
+                        name="phone"
+                        placeholder="Enter Phone Number"
+                        minLength={10}
+                        maxLength={10}
+                        onChange={handleInput}
+                      />
+                    </FormControl>
+                    <FormControl>
                       <FormLabel>Occupation</FormLabel>
                       <Input
                         type="text"
                         name="occupation"
                         placeholder="Enter Occupation"
-                        value={userInput.occupation}
                         onChange={handleInput}
+                        maxLength={60}
                       />
                     </FormControl>
                     <FormControl>
@@ -421,7 +441,6 @@ const Signup = () => {
                       <Select
                         placeholder="Select Gender"
                         name="gender"
-                        value={userInput.gender}
                         onChange={handleInput}
                       >
                         <option value="Male">Male</option>
@@ -438,7 +457,6 @@ const Signup = () => {
                       <Select
                         placeholder="Select Relationship Status"
                         name="relationshipStatus"
-                        value={userInput.relationshipStatus}
                         onChange={handleInput}
                       >
                         <option value="Single">Single</option>
@@ -454,7 +472,6 @@ const Signup = () => {
                       <Select
                         placeholder="Select Country"
                         name="country"
-                        value={userInput.country}
                         onChange={handleInput}
                       >
                         {countriesList.map((country, index) => {

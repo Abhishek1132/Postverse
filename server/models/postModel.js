@@ -11,10 +11,10 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    imageUrl: {
+    mediaUrl: {
       type: String,
     },
-    imageId: {
+    mediaId: {
       type: String,
     },
     likes: [

@@ -13,7 +13,10 @@ const UserSchema = Schema(
     },
     username: {
       type: String,
-      regex: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,28}[^\W]$/,
+      match: [
+        /^(?!.*\.\.)(?!.*\.$)[a-zA-Z][\w.]{1,28}[^\W]$/,
+        "Invalid Username!",
+      ],
       required: [true, "Username is required!"],
       unique: true,
     },
@@ -26,9 +29,14 @@ const UserSchema = Schema(
         "Invalid Email Address!",
       ],
     },
+    phone: {
+      type: String,
+      minlength: 0,
+      maxlength: 10,
+    },
     occupation: {
       type: String,
-      maxlength: 100,
+      maxlength: 60,
     },
     gender: {
       type: String,
